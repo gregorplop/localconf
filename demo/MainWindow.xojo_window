@@ -9,7 +9,7 @@ Begin Window MainWindow
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   582
+   Height          =   660
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -151,7 +151,7 @@ Begin Window MainWindow
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   453
+      Height          =   531
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -264,7 +264,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   15.0
       TextUnit        =   0
-      Top             =   146
+      Top             =   183
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -307,7 +307,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   15.0
       TextUnit        =   0
-      Top             =   183
+      Top             =   220
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -442,7 +442,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   14.0
       TextUnit        =   0
-      Top             =   220
+      Top             =   257
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -474,7 +474,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   12.0
       TextUnit        =   0
-      Top             =   537
+      Top             =   615
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -516,7 +516,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   15.0
       TextUnit        =   0
-      Top             =   537
+      Top             =   615
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -541,7 +541,7 @@ Begin Window MainWindow
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   268
+      Height          =   309
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -566,7 +566,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   14.0
       TextUnit        =   0
-      Top             =   257
+      Top             =   294
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -618,6 +618,49 @@ Begin Window MainWindow
       Visible         =   True
       Width           =   147
    End
+   Begin TextField userField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "user"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   25
+      HelpTag         =   "user"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   626
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   15.0
+      TextUnit        =   0
+      Top             =   146
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   172
+   End
 End
 #tag EndWindow
 
@@ -640,9 +683,11 @@ End
 		    localconf_filenameField.Enabled = false
 		    passwordField.Enabled = False
 		    openBtn.Enabled = false
+		    closeBtn.Enabled = true
 		    
 		    appField.Enabled = true
 		    sectionField.Enabled = true
+		    userField.Enabled = true
 		    keyField.Enabled = true
 		    readBtn.Enabled = true
 		    valuesList.Enabled = true
@@ -660,9 +705,11 @@ End
 		    localconf_filenameField.Enabled = true
 		    passwordField.Enabled = true
 		    openBtn.Enabled = true
+		    closeBtn.Enabled = False
 		    
 		    appField.Enabled = False
 		    sectionField.Enabled = False
+		    userField.Enabled = False
 		    keyField.Enabled = False
 		    readBtn.Enabled = False
 		    valuesList.Enabled = False
@@ -697,14 +744,22 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events openBtn
+	#tag Event
+		Sub Action()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events dumpList
 	#tag Event
 		Sub Open()
-		  me.ColumnCount = 4
+		  me.ColumnCount = 5
 		  me.Heading(0) = "application"
-		  me.Heading(1) = "section"
-		  me.Heading(2) = "key"
-		  me.Heading(3) = "value"
+		  me.Heading(1) = "user"
+		  me.Heading(2) = "section"
+		  me.Heading(3) = "key"
+		  me.Heading(4) = "value"
 		  
 		  me.HasHeading = true
 		  me.HeaderType(-1) = Listbox.HeaderTypes.NotSortable

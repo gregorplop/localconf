@@ -1,13 +1,6 @@
 #tag Class
 Protected Class localconf
 	#tag Method, Flags = &h0
-		Function Close() As string
-		  // returns empty string if OK, error message if error
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Constructor(file as FolderItem, optional password as string = "")
 		  
 		End Sub
@@ -17,19 +10,60 @@ Protected Class localconf
 		Shared Function create(file as FolderItem, password as string) As string
 		  // returns empty string if OK, error message if error
 		  
+		  if IsNull(file) then return "Configuration file is null!"
+		  if file.Exists then Return "Configuration file already exists!"
+		  if password.Trim = "" then return "No password set for new configuration file!"
+		  
+		  dim db as new SQLiteDatabase
+		  
+		  db.DatabaseFile = file
+		  db.Password = preparePassword(password)
+		  
+		  dim outcome as Boolean 
+		  dim errorMsg as string
+		  
+		  outcome = db.CreateDatabaseFile
+		  if outcome = false then Return "Error creating new configuration file: " + db.ErrorMessage
+		  
+		  outcome = db.Connect
+		  if outcome = false then
+		    errorMsg = db.ErrorMessage
+		    db.DatabaseFile.Delete
+		    Return "Error opening newly created configuration file: " + errorMsg
+		  end if
+		  
+		  dim CREATETABLE as string = "CREATE TABLE localconf ( application VARCHAR , user VARCHAR , section VARCHAR NOT NULL DEFAULT 'GLOBAL' , key VARCHAR NOT NULL , value VARCHAR )"
+		  
+		  db.SQLExecute(CREATETABLE)
+		  if db.Error then
+		    errorMsg = db.ErrorMessage
+		    db.Close
+		    db.DatabaseFile.Delete
+		    Return "Error initializing newly created configuration file: " + errorMsg
+		  end if
+		  
+		  db.Close
+		  Return ""  // success
+		  
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Open() As string
-		  // returns empty string if OK, error message if error
+		Function Get(application as string, user as string, section as String, key as String) As Variant
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function LastError() As string
+		  Return mLastError
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function preparePassword(plaintext as String) As string
+		Private Shared Function preparePassword(plaintext as String) As string
 		  // empty salt means use internal fixed salt via getSalt method
 		  dim hash as MemoryBlock = Crypto.PBKDF2(salt , plaintext , 7 , 8 , Crypto.Algorithm.SHA512)
 		  dim output as String
@@ -47,7 +81,7 @@ Protected Class localconf
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function Salt() As string
+		Private Shared Function Salt() As string
 		  // replace it with your own salt if needed
 		  
 		  Return "dEfAu1Ts@LT!"
@@ -58,11 +92,15 @@ Protected Class localconf
 
 
 	#tag Property, Flags = &h21
-		Private db As SQLiteDatabase
+		Private file As FolderItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private file As FolderItem
+		Private mLastError As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private passwd As String
 	#tag EndProperty
 
 
@@ -99,6 +137,11 @@ Protected Class localconf
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="mLastError"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
