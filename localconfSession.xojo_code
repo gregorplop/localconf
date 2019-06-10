@@ -1,7 +1,12 @@
 #tag Class
 Protected Class localconfSession
 	#tag Method, Flags = &h0
-		Function Append(recordObject as localconfRecord) As localconfRecord
+		Function Append2Array(recordObject as localconfRecord) As localconfRecord
+		  // only inserts records with the (application/user/section/key) combination
+		  // when used repeatedy for the same combination, it effectively creates an array which can be read using ReadArray
+		  
+		  
+		  
 		  
 		End Function
 	#tag EndMethod
@@ -12,6 +17,7 @@ Protected Class localconfSession
 		  // the actual password is calculated using the user-supplied password: only localconfSession is meant to access the config file
 		  
 		  // returns empty string if OK, error message if error
+		  // although it's called a session, you'll notice that it only connects to the db file when needed. it does not keep the actual session to the database constantly open
 		  
 		  mLastError = ""
 		  
@@ -45,6 +51,47 @@ Protected Class localconfSession
 		  Return
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function Count(recordObject as localconfRecord) As integer
+		  // counts records that match the (application/user/section/key) criterion
+		  
+		  mLastError = ""
+		  
+		  if validateCachedParams = false then
+		    mLastError = "Localconf session no longer valid, please restart!"
+		  ElseIf IsNull(recordObject) then
+		    mLastError = "Invalid search parameters"
+		  ElseIf recordObject.key.Trim = "" then
+		    mLastError = "No key entered!"
+		  end if
+		  if mLastError <> "" then return -1
+		  
+		  dim db as new SQLiteDatabase
+		  db.DatabaseFile = file
+		  db.EncryptionKey = preparePassword(DecodeBase64(passwd))
+		  
+		  if db.Connect = false then 
+		    mLastError = "Error accessing settings file: " + db.ErrorMessage
+		    Return -1
+		  end if
+		  
+		  dim WHERE as string
+		  WHERE = "application = " + if(recordObject.application.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.application.Trim.Uppercase + "'") + " AND "
+		  WHERE = WHERE + "user = " + if(recordObject.user.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.user.Trim.Uppercase + "'") + " AND "
+		  WHERE = WHERE + "section = " + if(recordObject.section.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.section.Trim.Uppercase + "'") + " AND "
+		  WHERE = WHERE + "key = '" + recordObject.key.Trim.Uppercase + "'"
+		  
+		  dim countdata as RecordSet = db.SQLSelect("SELECT COUNT(*) FROM localconf WHERE " + WHERE + " ORDER BY objidx ASC")
+		  
+		  if db.error = true then 
+		    mLastError = "Error querying settings file: " + db.ErrorMessage
+		    Return -1
+		  end if
+		  
+		  Return countdata.IdxField(1).IntegerValue
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -94,7 +141,13 @@ Protected Class localconfSession
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function DumpAll() As localconfRecord()
+		Function Delete(objidx as Integer) As Boolean
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FreeQuery(optional WHERE as String = "TRUE") As localconfRecord()
 		  // if error then output is 1-element array with .error = true and .errorMessage hold reason for error
 		  // if localconf file is empty then output is an array having UBound = -1
 		  
@@ -114,10 +167,12 @@ Protected Class localconfSession
 		    Return dump
 		  end if
 		  
-		  dim dumpdata as RecordSet = db.SQLSelect("SELECT * FROM localconf ORDER BY objidx ASC")
+		  if WHERE.Trim = "" then WHERE = "TRUE"
+		  
+		  dim dumpdata as RecordSet = db.SQLSelect("SELECT * FROM localconf WHERE " + WHERE + " ORDER BY objidx ASC")
 		  
 		  if db.error = true then 
-		    dump.Append new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		    dump.Append new localconfRecord("Error querying settings file: " + db.ErrorMessage)
 		    Return dump
 		  end if
 		  
@@ -171,6 +226,8 @@ Protected Class localconfSession
 
 	#tag Method, Flags = &h0
 		Function ReadArray(recordObject as localconfRecord) As localconfRecord()
+		  // reads all elements that matche the (application/user/section/key) criterion
+		  // objidx is ignored if exists
 		  
 		End Function
 	#tag EndMethod
@@ -190,6 +247,93 @@ Protected Class localconfSession
 		  Return "dEfAu1Ts@LT!"
 		  
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Upsert(recordObject as localconfRecord) As localconfRecord
+		  // match criterion is either the (application/user/section/key) combination or objidx (only update)
+		  // objidx holds priority
+		  
+		  if validateCachedParams = false then
+		    Return new localconfRecord("Localconf session no longer valid, please restart!")
+		  ElseIf IsNull(recordObject) then
+		    Return new localconfRecord("Invalid search parameters")
+		  end if
+		  
+		  dim db as new SQLiteDatabase
+		  db.DatabaseFile = file
+		  db.EncryptionKey = preparePassword(DecodeBase64(passwd))
+		  
+		  if db.Connect = false then 
+		    Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		  end if
+		  
+		  dim rs as RecordSet
+		  dim WHERE as String
+		  
+		  
+		  if recordObject.objidx > 0 then  // objidx is our match criterion -- it can only mean update
+		    
+		    rs = db.SQLSelect("SELECT * FROM localconf WHERE objidx = " + str(recordObject.objidx))
+		    if db.Error then Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		    if rs.RecordCount = 0 then Return new localconfRecord("Configuration record " + str(recordObject.objidx) + " does not exist!")
+		    
+		    rs.Edit
+		    rs.Field("value").StringValue = recordObject.value
+		    rs.Field("comment").StringValue = recordObject.comment
+		    rs.Update
+		    if db.Error then Return new localconfRecord("Error updating settings file: " + db.ErrorMessage)
+		    
+		    db.Close
+		    
+		  else // we look for the (application/user/section/key) combination
+		    
+		    if recordObject.key.Trim = "" then Return new localconfRecord("Key should not be empty!")
+		    
+		    select case Count(recordObject)
+		    case -1  // error
+		      Return new localconfRecord("Error reading config file: " + LastError)
+		    case 0  // insert
+		      
+		      dim newRecord as new DatabaseRecord
+		      
+		      newRecord.Column("application") = if(recordObject.application.Trim = "" , GlobalName , recordObject.application.Trim.Uppercase)
+		      newRecord.Column("user") = if(recordObject.user.Trim = "" , GlobalName , recordObject.user.Trim.Uppercase)
+		      newRecord.Column("section") = if(recordObject.section.Trim = "" , GlobalName , recordObject.section.Trim.Uppercase)
+		      newRecord.Column("key") = recordObject.key.Trim.Uppercase
+		      
+		      if recordObject.value <> "" then newRecord.Column("value") = recordObject.value
+		      if recordObject.comment.Trim <> "" then newRecord.Column("comment") = recordObject.comment
+		      
+		      db.InsertRecord("localconf" , newRecord)
+		      if db.Error then Return new localconfRecord("Error writing settings file: " + db.ErrorMessage)
+		      
+		    case 1  // update
+		      WHERE = "application = " + if(recordObject.application.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.application.Trim.Uppercase + "'") + " AND "
+		      WHERE = WHERE + "user = " + if(recordObject.user.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.user.Trim.Uppercase + "'") + " AND "
+		      WHERE = WHERE + "section = " + if(recordObject.section.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.section.Trim.Uppercase + "'") + " AND "
+		      WHERE = WHERE + "key = '" + recordObject.key.Trim.Uppercase + "'"
+		      
+		      rs = db.SQLSelect("SELECT * FROM localconf WHERE " + WHERE)
+		      if db.Error then Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		      if rs.RecordCount <> 1 then Return new localconfRecord("Internal data inconsistency!")
+		      
+		      rs.Edit
+		      rs.Field("value").StringValue = recordObject.value
+		      rs.Field("comment").StringValue = recordObject.comment
+		      rs.Update
+		      if db.Error then Return new localconfRecord("Error updating settings file: " + db.ErrorMessage)
+		      
+		      db.Close
+		      
+		    else // it's an array --this method can't act on arrays
+		      Return new localconfRecord("Cannot use upsert on an array!")
+		    end select
+		    
+		  end if
+		  
+		  Return recordObject
 		End Function
 	#tag EndMethod
 

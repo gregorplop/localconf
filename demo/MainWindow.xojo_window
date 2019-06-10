@@ -151,7 +151,7 @@ Begin Window MainWindow
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   531
+      Height          =   442
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -218,7 +218,7 @@ Begin Window MainWindow
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   332
+      Width           =   140
    End
    Begin PushButton refreshBtn
       AutoDeactivate  =   True
@@ -226,9 +226,9 @@ Begin Window MainWindow
       ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "Refresh"
-      Default         =   False
+      Default         =   True
       Enabled         =   True
-      Height          =   25
+      Height          =   30
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -246,8 +246,8 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   14.0
       TextUnit        =   0
-      Top             =   72
-      Transparent     =   False
+      Top             =   67
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -327,6 +327,339 @@ Begin Window MainWindow
       Visible         =   True
       Width           =   80
    End
+   Begin TextField applicationField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "application"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LimitText       =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   563
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   150
+   End
+   Begin TextField userField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "user"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   182
+      LimitText       =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   563
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   150
+   End
+   Begin TextField sectionField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "section"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   344
+      LimitText       =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   21
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   563
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   150
+   End
+   Begin TextField keyField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "key"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   506
+      LimitText       =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   22
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   563
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   150
+   End
+   Begin TextField commentField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFE1E100
+      Bold            =   False
+      Border          =   True
+      CueText         =   "comment"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   848
+      LimitText       =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   23
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   563
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   150
+   End
+   Begin TextField valueField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFD900
+      Bold            =   False
+      Border          =   True
+      CueText         =   "value"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   686
+      LimitText       =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   24
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   563
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   150
+   End
+   Begin PushButton UpsertBtn
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Upsert"
+      Default         =   False
+      Enabled         =   True
+      Height          =   35
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   848
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   25
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   14.0
+      TextUnit        =   0
+      Top             =   605
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   150
+   End
+   Begin TextField WHEREfield
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "WHERE"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   172
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   26
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   19.0
+      TextUnit        =   0
+      Top             =   67
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   734
+   End
 End
 #tag EndWindow
 
@@ -351,10 +684,10 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub showAll()
+		Sub query()
 		  dumpList.DeleteAllRows
 		  
-		  dim allRecords(-1) as localconfRecord = myLocalconf.DumpAll
+		  dim allRecords(-1) as localconfRecord = myLocalconf.FreeQuery(WHEREfield.Text.Trim)
 		  
 		  if allRecords.Ubound < 0 then
 		    MsgBox "No configuration entries!"
@@ -406,6 +739,9 @@ End
 		    closeBtn.Enabled = true
 		    CreateBtn.Enabled = False
 		    
+		    WHEREfield.Enabled = true
+		    
+		    UpsertBtn.Enabled = true
 		    
 		    dumpList.Enabled = true
 		    dumpList.DeleteAllRows
@@ -420,6 +756,11 @@ End
 		    openBtn.Enabled = true
 		    closeBtn.Enabled = False
 		    CreateBtn.Enabled = true
+		    
+		    WHEREfield.Enabled = false
+		    WHEREfield.Text = ""
+		    
+		    UpsertBtn.Enabled = false
 		    
 		    dumpList.Enabled = False
 		    dumpList.DeleteAllRows
@@ -454,12 +795,19 @@ End
 		  
 		  if myLocalconf.LastError = "" then
 		    UI_mode("OPEN")
+		    
+		    WHEREfield.Text = ""
+		    query
+		    
+		    
 		  else
 		    MsgBox myLocalconf.LastError
 		    myLocalconf = nil
 		  end if
 		  
-		  showAll
+		  
+		  
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -496,7 +844,8 @@ End
 #tag Events refreshBtn
 	#tag Event
 		Sub Action()
-		  if IsNull(myLocalconf) = false then showAll
+		  if IsNull(myLocalconf) = false then query
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -513,6 +862,31 @@ End
 		  
 		End Sub
 	#tag EndEvent
+#tag EndEvents
+#tag Events UpsertBtn
+	#tag Event
+		Sub Action()
+		  dim confObj as new localconfRecord(true)
+		  
+		  confObj.application = applicationField.Text.Trim
+		  confObj.user = userField.Text.Trim
+		  confObj.section = sectionField.Text.Trim
+		  confObj.key = keyField.Text.Trim
+		  confObj.value = valueField.Text.Trim
+		  confObj.comment = commentField.Text.Trim
+		  
+		  confObj = myLocalconf.Upsert(confObj)
+		  
+		  if confObj.Error then
+		    MsgBox confObj.ErrorMessage
+		  end if
+		  
+		  query
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events WHEREfield
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
