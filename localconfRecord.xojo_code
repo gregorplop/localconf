@@ -1,5 +1,24 @@
 #tag Class
 Protected Class localconfRecord
+	#tag Method, Flags = &h0
+		Sub Constructor(initExists as Boolean)
+		  Error = False
+		  ErrorMessage = ""
+		  Exists = initExists
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(initErrorMessage as string)
+		  Error = true
+		  ErrorMessage = initErrorMessage
+		  
+		End Sub
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0
 		application As String
 	#tag EndProperty
@@ -21,7 +40,11 @@ Protected Class localconfRecord
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		objidx As String
+		key As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		objidx As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -74,7 +97,48 @@ Protected Class localconfRecord
 		#tag ViewProperty
 			Name="user"
 			Group="Behavior"
-			Type="Integer"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="application"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="comment"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Error"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ErrorMessage"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Exists"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="objidx"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="section"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="value"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
