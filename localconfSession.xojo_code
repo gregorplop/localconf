@@ -1,5 +1,5 @@
 #tag Class
-Protected Class localconf
+Protected Class localconfSession
 	#tag Method, Flags = &h0
 		Sub Constructor(file as FolderItem, optional password as string = "")
 		  
@@ -32,7 +32,7 @@ Protected Class localconf
 		    Return "Error opening newly created configuration file: " + errorMsg
 		  end if
 		  
-		  dim CREATETABLE as string = "CREATE TABLE localconf ( application VARCHAR , user VARCHAR , section VARCHAR NOT NULL DEFAULT 'GLOBAL' , key VARCHAR NOT NULL , value VARCHAR )"
+		  dim CREATETABLE as string = "CREATE TABLE localconf (objidx INTEGER PRIMARY KEY AUTOINCREMENT , application VARCHAR NOT NULL DEFAULT '" + GlobalName + "' , user VARCHAR NOT NULL DEFAULT '" + GlobalName + "' , section VARCHAR NOT NULL DEFAULT '" + GlobalName + "' , key VARCHAR NOT NULL , value VARCHAR , comments VARCHAR)"
 		  
 		  db.SQLExecute(CREATETABLE)
 		  if db.Error then
@@ -45,12 +45,6 @@ Protected Class localconf
 		  db.Close
 		  Return ""  // success
 		  
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Get(application as string, user as string, section as String, key as String) As Variant
 		  
 		End Function
 	#tag EndMethod
@@ -80,12 +74,30 @@ Protected Class localconf
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Read(recordObject as localconfRecord) As localconfRecord
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ReadAll() As localconfRecord()
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function Salt() As string
 		  // replace it with your own salt if needed
 		  
 		  Return "dEfAu1Ts@LT!"
 		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Write(recordObject as localconfRecord) As localconfRecord
 		  
 		End Function
 	#tag EndMethod
@@ -102,6 +114,10 @@ Protected Class localconf
 	#tag Property, Flags = &h21
 		Private passwd As String
 	#tag EndProperty
+
+
+	#tag Constant, Name = GlobalName, Type = String, Dynamic = False, Default = \"GLOBAL", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior
@@ -137,11 +153,6 @@ Protected Class localconf
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="mLastError"
-			Group="Behavior"
-			Type="string"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
