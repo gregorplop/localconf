@@ -625,7 +625,7 @@ Begin Window MainWindow
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   "WHERE"
+      CueText         =   "WHERE clauses or objidx (for Upsert, Delete, Read Single)"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -757,7 +757,7 @@ Begin Window MainWindow
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   978
+      Width           =   654
    End
    Begin PushButton DeleteBtn
       AutoDeactivate  =   True
@@ -854,6 +854,41 @@ Begin Window MainWindow
       Underline       =   False
       Visible         =   True
       Width           =   150
+   End
+   Begin Label projectLink
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   25
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   686
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   33
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "localconf on GitHub"
+      TextAlign       =   2
+      TextColor       =   &c0000FF00
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   564
+      Transparent     =   True
+      Underline       =   True
+      Visible         =   True
+      Width           =   312
    End
 End
 #tag EndWindow
@@ -1105,10 +1140,19 @@ End
 		Sub Action()
 		  dim confObj as new localconfRecord(true)
 		  
-		  confObj.application = applicationField.Text.Trim
-		  confObj.user = userField.Text.Trim
-		  confObj.section = sectionField.Text.Trim
-		  confObj.key = keyField.Text.Trim
+		  if IsNumeric(WHEREfield.Text) then
+		    
+		    confObj.objidx = WHEREfield.Text.Trim.Val
+		    
+		  else
+		    
+		    confObj.application = applicationField.Text.Trim
+		    confObj.user = userField.Text.Trim
+		    confObj.section = sectionField.Text.Trim
+		    confObj.key = keyField.Text.Trim
+		    
+		  end if
+		  
 		  confObj.value = valueField.Text.Trim
 		  confObj.comment = commentField.Text.Trim
 		  
@@ -1179,10 +1223,18 @@ End
 		Sub Action()
 		  dim confObj as new localconfRecord(true)
 		  
-		  confObj.application = applicationField.Text.Trim
-		  confObj.user = userField.Text.Trim
-		  confObj.section = sectionField.Text.Trim
-		  confObj.key = keyField.Text.Trim
+		  if IsNumeric(WHEREfield.Text) then
+		    
+		    confObj.objidx = WHEREfield.Text.Trim.Val
+		    
+		  else
+		    
+		    confObj.application = applicationField.Text.Trim
+		    confObj.user = userField.Text.Trim
+		    confObj.section = sectionField.Text.Trim
+		    confObj.key = keyField.Text.Trim
+		    
+		  end if
 		  
 		  confObj = myLocalconf.Delete(confObj)
 		  
@@ -1202,20 +1254,27 @@ End
 		Sub Action()
 		  dim confObj as new localconfRecord(true)
 		  
-		  confObj.application = applicationField.Text.Trim
-		  confObj.user = userField.Text.Trim
-		  confObj.section = sectionField.Text.Trim
-		  confObj.key = keyField.Text.Trim
+		  if IsNumeric(WHEREfield.Text) then
+		    
+		    confObj.objidx = WHEREfield.Text.Trim.Val
+		    
+		  else
+		    
+		    confObj.application = applicationField.Text.Trim
+		    confObj.user = userField.Text.Trim
+		    confObj.section = sectionField.Text.Trim
+		    confObj.key = keyField.Text.Trim
+		    
+		  end if
 		  
-		  confObj = myLocalconf.Delete(confObj)
+		  confObj = myLocalconf.ReadSingle(confObj)
 		  
 		  if confObj.Error then
 		    MsgBox confObj.ErrorMessage
 		  else
-		    MainLabel.text = "Deleted record"
+		    MainLabel.text = "Read record"
+		    MsgBox "Value: " + confObj.value + EndOfLine + "Comment: " + confObj.comment
 		  end if
-		  
-		  query
 		  
 		End Sub
 	#tag EndEvent
@@ -1230,17 +1289,36 @@ End
 		  confObj.section = sectionField.Text.Trim
 		  confObj.key = keyField.Text.Trim
 		  
-		  confObj = myLocalconf.Delete(confObj)
+		  dim confArray(-1) as localconfRecord = myLocalconf.ReadArray(confObj)
 		  
-		  if confObj.Error then
-		    MsgBox confObj.ErrorMessage
+		  if confArray(0).Error then
+		    MainLabel.Text = "Error getting array"
+		    MsgBox confArray(0).ErrorMessage
+		  ElseIf confArray(0).Exists = false then
+		    MainLabel.Text = "No elements in array"
 		  else
-		    MainLabel.text = "Deleted record"
+		    
+		    dim msg as String
+		    
+		    for i as Integer = 0 to confArray.Ubound
+		      msg = msg + "Value: " + confArray(i).value + EndOfLine
+		      msg = msg + "Comment: " + confArray(i).comment + EndOfLine
+		      msg = msg + "-------------"+ EndOfLine
+		    next i
+		    
+		    MsgBox msg
+		    
 		  end if
 		  
-		  query
-		  
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events projectLink
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  ShowURL(localconfSession.projectURL)
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

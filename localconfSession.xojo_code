@@ -254,6 +254,13 @@ Protected Class localconfSession
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Shared Function projectURL() As String
+		  Return "https://github.com/gregorplop/localconf"
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function QueryDistinct(DistinctField as string, optional WHERE as string) As string()
 		  // if error then output is a -1 bounded array and LastError holds error message
 		  
@@ -356,14 +363,132 @@ Protected Class localconfSession
 		  // reads all elements that matche the (application/user/section/key) criterion
 		  // objidx is ignored if exists
 		  
+		  if validateCachedParams = false then
+		    Return array(new localconfRecord("Localconf session no longer valid, please restart!"))
+		  ElseIf IsNull(recordObject) then
+		    Return array(new localconfRecord("Invalid search parameters"))
+		  end if
+		  
+		  dim db as new SQLiteDatabase
+		  db.DatabaseFile = file
+		  db.EncryptionKey = preparePassword(DecodeBase64(passwd))
+		  
+		  if db.Connect = false then 
+		    Return array(new localconfRecord("Error accessing settings file: " + db.ErrorMessage))
+		  end if
+		  
+		  dim rs as RecordSet
+		  
+		  dim output(-1) as localconfRecord
+		  dim record as localconfRecord
+		  
+		  if recordObject.key.Trim = "" then Return array(new localconfRecord("Key should not be empty!"))
+		  
+		  dim WHERE as string
+		  WHERE = "application = " + if(recordObject.application.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.application.Trim.Uppercase + "'") + " AND "
+		  WHERE = WHERE + "user = " + if(recordObject.user.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.user.Trim.Uppercase + "'") + " AND "
+		  WHERE = WHERE + "section = " + if(recordObject.section.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.section.Trim.Uppercase + "'") + " AND "
+		  WHERE = WHERE + "key = '" + recordObject.key.Trim.Uppercase + "'"
+		  
+		  rs = db.SQLSelect("SELECT * FROM localconf WHERE " + WHERE + " ORDER BY objidx ASC")
+		  if db.Error then Return array(new localconfRecord("Error accessing settings file: " + db.ErrorMessage))
+		  
+		  if rs.RecordCount = 0 then // objdix does not exist
+		    
+		    return array(new localconfRecord(false))
+		    
+		  else  // one or more records found
+		    
+		    while not rs.EOF
+		      record = new localconfRecord(true)
+		      
+		      record.application = rs.Field("application").StringValue
+		      record.user = rs.Field("user").StringValue
+		      record.section = rs.Field("section").StringValue
+		      record.key = rs.Field("key").StringValue
+		      record.value = rs.Field("value").StringValue
+		      record.comment = rs.Field("comment").StringValue
+		      
+		      output.Append record
+		      
+		      rs.MoveNext
+		    wend
+		    
+		  end if
+		  
+		  Return output
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ReadSingle(recordObject as localconfRecord) As localconfRecord
 		  // reads the first element that matches the (application/user/section/key) OR (objidx) criterion
+		  // priority on objidx 
 		  
+		  if validateCachedParams = false then
+		    Return new localconfRecord("Localconf session no longer valid, please restart!")
+		  ElseIf IsNull(recordObject) then
+		    Return new localconfRecord("Invalid search parameters")
+		  end if
 		  
+		  dim db as new SQLiteDatabase
+		  db.DatabaseFile = file
+		  db.EncryptionKey = preparePassword(DecodeBase64(passwd))
+		  
+		  if db.Connect = false then 
+		    Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		  end if
+		  
+		  dim rs as RecordSet
+		  dim output as localconfRecord
+		  
+		  if recordObject.objidx > 0 then  // objidx is our match criterion
+		    
+		    rs = db.SQLSelect("SELECT * FROM localconf WHERE objidx = " + str(recordObject.objidx))
+		    if db.Error then Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		    
+		    if rs.RecordCount = 0 then // objdix does not exist
+		      output = new localconfRecord(false)
+		      output.objidx = recordObject.objidx
+		    else  // one record found (since we're looking for the primary key)
+		      output = new localconfRecord(true)
+		    end if
+		    
+		    output.objidx = recordObject.objidx
+		    
+		  else // we look for the (application/user/section/key) combination
+		    
+		    if recordObject.key.Trim = "" then Return new localconfRecord("Key should not be empty!")
+		    
+		    dim WHERE as string
+		    WHERE = "application = " + if(recordObject.application.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.application.Trim.Uppercase + "'") + " AND "
+		    WHERE = WHERE + "user = " + if(recordObject.user.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.user.Trim.Uppercase + "'") + " AND "
+		    WHERE = WHERE + "section = " + if(recordObject.section.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.section.Trim.Uppercase + "'") + " AND "
+		    WHERE = WHERE + "key = '" + recordObject.key.Trim.Uppercase + "'"
+		    
+		    rs = db.SQLSelect("SELECT * FROM localconf WHERE " + WHERE + " ORDER BY objidx ASC")
+		    if db.Error then Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		    
+		    if rs.RecordCount = 0 then // objdix does not exist
+		      output = new localconfRecord(false)
+		    else  // one or more records found  (if it's an array it will return the first record and will not complain)
+		      output = new localconfRecord(true)
+		      output.objidx = rs.Field("objidx").IntegerValue
+		    end if
+		    
+		    
+		  end if
+		  
+		  if output.Exists then
+		    output.application = rs.Field("application").StringValue
+		    output.user = rs.Field("user").StringValue
+		    output.section = rs.Field("section").StringValue
+		    output.key = rs.Field("key").StringValue
+		    output.value = rs.Field("value").StringValue
+		    output.comment = rs.Field("comment").StringValue
+		  end if
+		  
+		  Return output
 		End Function
 	#tag EndMethod
 
