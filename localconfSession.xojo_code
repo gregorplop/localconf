@@ -4,10 +4,42 @@ Protected Class localconfSession
 		Function Append2Array(recordObject as localconfRecord) As localconfRecord
 		  // only inserts records with the (application/user/section/key) combination
 		  // when used repeatedy for the same combination, it effectively creates an array which can be read using ReadArray
+		  // returns the newly created record's objidx in the return Object
 		  
+		  if validateCachedParams = false then
+		    Return new localconfRecord("Localconf session no longer valid, please restart!")
+		  ElseIf IsNull(recordObject) then
+		    Return new localconfRecord("Invalid search parameters")
+		  end if
 		  
+		  dim db as new SQLiteDatabase
+		  db.DatabaseFile = file
+		  db.EncryptionKey = preparePassword(DecodeBase64(passwd))
 		  
+		  if db.Connect = false then 
+		    Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		  end if
 		  
+		  if recordObject.key.Trim = "" then Return new localconfRecord("Key should not be empty!")
+		  
+		  dim newRecord as new DatabaseRecord
+		  
+		  newRecord.Column("application") = if(recordObject.application.Trim = "" , GlobalName , recordObject.application.Trim.Uppercase)
+		  newRecord.Column("user") = if(recordObject.user.Trim = "" , GlobalName , recordObject.user.Trim.Uppercase)
+		  newRecord.Column("section") = if(recordObject.section.Trim = "" , GlobalName , recordObject.section.Trim.Uppercase)
+		  newRecord.Column("key") = recordObject.key.Trim.Uppercase
+		  
+		  if recordObject.value <> "" then newRecord.Column("value") = recordObject.value
+		  if recordObject.comment.Trim <> "" then newRecord.Column("comment") = recordObject.comment
+		  
+		  db.InsertRecord("localconf" , newRecord)
+		  if db.Error then Return new localconfRecord("Error writing settings file: " + db.ErrorMessage)
+		  
+		  recordObject.objidx = db.LastRowID
+		  
+		  db.Close
+		  
+		  Return recordObject
 		End Function
 	#tag EndMethod
 
@@ -141,14 +173,134 @@ Protected Class localconfSession
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Delete(objidx as Integer) As Boolean
+		Function Delete(recordObject as localconfRecord) As localconfRecord
+		  // match criterion is either the (application/user/section/key) combination or objidx
+		  // priority on objidx
+		  
+		  if validateCachedParams = false then
+		    Return new localconfRecord("Localconf session no longer valid, please restart!")
+		  ElseIf IsNull(recordObject) then
+		    Return new localconfRecord("Invalid search parameters")
+		  end if
+		  
+		  dim db as new SQLiteDatabase
+		  db.DatabaseFile = file
+		  db.EncryptionKey = preparePassword(DecodeBase64(passwd))
+		  
+		  if db.Connect = false then 
+		    Return new localconfRecord("Error accessing settings file: " + db.ErrorMessage)
+		  end if
+		  
+		  if recordObject.objidx > 0 then  // objidx is our match criterion 
+		    
+		    db.SQLExecute("DELETE FROM localconf WHERE objidx = " + str(recordObject.objidx))
+		    if db.Error then Return new localconfRecord("Error deleting from settings file: " + db.ErrorMessage)
+		    
+		  else // we look for the (application/user/section/key) combination
+		    
+		    if recordObject.key.Trim = "" then Return new localconfRecord("Key should not be empty!")
+		    
+		    select case Count(recordObject)
+		    case -1  // error
+		      Return new localconfRecord("Error reading config file: " + LastError)
+		    case 0  // nothing to delete
+		      Return new localconfRecord("No records to delete!")
+		    case 1  // one record to delete
+		      
+		      dim WHERE as String
+		      
+		      WHERE = "application = " + if(recordObject.application.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.application.Trim.Uppercase + "'") + " AND "
+		      WHERE = WHERE + "user = " + if(recordObject.user.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.user.Trim.Uppercase + "'") + " AND "
+		      WHERE = WHERE + "section = " + if(recordObject.section.Trim = "" , "'" + GlobalName + "'" , "'" + recordObject.section.Trim.Uppercase + "'") + " AND "
+		      WHERE = WHERE + "key = '" + recordObject.key.Trim.Uppercase + "'"
+		      
+		      db.SQLExecute("DELETE FROM localconf WHERE " + WHERE)
+		      if db.Error then Return new localconfRecord("Error deleting from settings file: " + db.ErrorMessage)
+		      
+		    else // it's an array --this method can't act on arrays
+		      Return new localconfRecord("Cannot delete an entire array!")
+		    end select
+		    
+		  end if
+		  
+		  Return recordObject
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FreeQuery(optional WHERE as String = "TRUE") As localconfRecord()
-		  // if error then output is 1-element array with .error = true and .errorMessage hold reason for error
+		Function LastError() As string
+		  Return mLastError
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function preparePassword(plaintext as String) As string
+		  // empty salt means use internal fixed salt via getSalt method
+		  dim hash as MemoryBlock = Crypto.PBKDF2(salt , plaintext , 7 , 8 , Crypto.Algorithm.SHA512)
+		  dim output as String
+		  dim char as string
+		  
+		  for i as Integer = 0 to hash.Size - 1
+		    char = str(hash.UInt8Value(i).ToHex(2))
+		    if i mod 2 = 0 then char = char.Lowercase
+		    output = output + char
+		  next i
+		  
+		  return output  // should always be a 16 character string
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function QueryDistinct(DistinctField as string, optional WHERE as string) As string()
+		  // if error then output is a -1 bounded array and LastError holds error message
+		  
+		  mLastError = ""
+		  dim distinctValues(-1) as string
+		  
+		  dim allowedFields(-1) as String = Array("application" , "user" , "section" , "key" , "value")
+		  if allowedFields.IndexOf(DistinctField.Lowercase) < 0 then 
+		    mLastError = "Invalid field name for distinct values query!"
+		    Return distinctValues
+		  end if
+		  
+		  if validateCachedParams = false then
+		    mLastError = "Localconf session no longer valid, please restart!"
+		    Return distinctValues
+		  end if
+		  
+		  dim db as new SQLiteDatabase
+		  db.DatabaseFile = file
+		  db.EncryptionKey = preparePassword(DecodeBase64(passwd))
+		  
+		  if db.Connect = false then 
+		    mLastError = "Error accessing settings file: " + db.ErrorMessage
+		    Return distinctValues
+		  end if
+		  
+		  if WHERE.Trim = "" then WHERE = "TRUE"
+		  
+		  dim dumpdata as RecordSet = db.SQLSelect("SELECT DISTINCT " + DistinctField.Lowercase + " FROM localconf WHERE " + WHERE + " ORDER BY " + DistinctField.Lowercase + " ASC")
+		  
+		  if db.error = true then 
+		    mLastError = "Error querying settings file: " + db.ErrorMessage
+		    Return distinctValues
+		  end if
+		  
+		  while not dumpdata.EOF
+		    distinctValues.Append dumpdata.IdxField(1).StringValue
+		    dumpdata.MoveNext
+		  wend
+		  
+		  Return distinctValues
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function QueryGeneric(optional WHERE as String = "TRUE") As localconfRecord()
+		  // if error then output is 1-element array with .error = true and .errorMessage holds reason for error
 		  // if localconf file is empty then output is an array having UBound = -1
 		  
 		  dim dump(-1) as localconfRecord
@@ -196,31 +348,6 @@ Protected Class localconfSession
 		  wend
 		  
 		  Return dump
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function LastError() As string
-		  Return mLastError
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function preparePassword(plaintext as String) As string
-		  // empty salt means use internal fixed salt via getSalt method
-		  dim hash as MemoryBlock = Crypto.PBKDF2(salt , plaintext , 7 , 8 , Crypto.Algorithm.SHA512)
-		  dim output as String
-		  dim char as string
-		  
-		  for i as Integer = 0 to hash.Size - 1
-		    char = str(hash.UInt8Value(i).ToHex(2))
-		    if i mod 2 = 0 then char = char.Lowercase
-		    output = output + char
-		  next i
-		  
-		  return output  // should always be a 16 character string
-		  
 		End Function
 	#tag EndMethod
 

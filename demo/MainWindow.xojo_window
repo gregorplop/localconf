@@ -9,7 +9,7 @@ Begin Window MainWindow
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   660
+   Height          =   594
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -18,9 +18,9 @@ Begin Window MainWindow
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
-   MinHeight       =   64
+   MinHeight       =   594
    MinimizeButton  =   True
-   MinWidth        =   64
+   MinWidth        =   1018
    Placement       =   0
    Resizeable      =   True
    Title           =   "localconf_demo"
@@ -151,7 +151,7 @@ Begin Window MainWindow
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   442
+      Height          =   344
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -176,7 +176,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   16.0
       TextUnit        =   0
-      Top             =   109
+      Top             =   114
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -191,7 +191,7 @@ Begin Window MainWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   30
+      Height          =   35
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -225,15 +225,15 @@ Begin Window MainWindow
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Refresh"
+      Caption         =   "Query"
       Default         =   True
       Enabled         =   True
-      Height          =   30
+      Height          =   35
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   918
+      Left            =   734
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -363,7 +363,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   16.0
       TextUnit        =   0
-      Top             =   563
+      Top             =   470
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -406,7 +406,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   16.0
       TextUnit        =   0
-      Top             =   563
+      Top             =   470
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -449,7 +449,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   16.0
       TextUnit        =   0
-      Top             =   563
+      Top             =   470
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -492,7 +492,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   16.0
       TextUnit        =   0
-      Top             =   563
+      Top             =   470
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -535,7 +535,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   16.0
       TextUnit        =   0
-      Top             =   563
+      Top             =   470
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -578,7 +578,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   16.0
       TextUnit        =   0
-      Top             =   563
+      Top             =   470
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -611,7 +611,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   14.0
       TextUnit        =   0
-      Top             =   605
+      Top             =   512
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -630,7 +630,7 @@ Begin Window MainWindow
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   30
+      Height          =   35
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
@@ -658,7 +658,202 @@ Begin Window MainWindow
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   734
+      Width           =   550
+   End
+   Begin PushButton queryDistinctBtn
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Distinct"
+      Default         =   False
+      Enabled         =   True
+      Height          =   35
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   826
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   27
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   14.0
+      TextUnit        =   0
+      Top             =   67
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PushButton appendBtn
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Append"
+      Default         =   False
+      Enabled         =   True
+      Height          =   35
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   686
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   28
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   14.0
+      TextUnit        =   0
+      Top             =   512
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   150
+   End
+   Begin Label MainLabel
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   35
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   29
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "localconf demo application"
+      TextAlign       =   1
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   559
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   978
+   End
+   Begin PushButton DeleteBtn
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Delete"
+      Default         =   False
+      Enabled         =   True
+      Height          =   35
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   506
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   30
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   14.0
+      TextUnit        =   0
+      Top             =   512
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   150
+   End
+   Begin PushButton ReadSingleBtn
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Read Single"
+      Default         =   False
+      Enabled         =   True
+      Height          =   35
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   31
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   14.0
+      TextUnit        =   0
+      Top             =   512
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   150
+   End
+   Begin PushButton ReadArrayBtn
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Read Array"
+      Default         =   False
+      Enabled         =   True
+      Height          =   35
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   182
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   32
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   14.0
+      TextUnit        =   0
+      Top             =   512
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   150
    End
 End
 #tag EndWindow
@@ -687,7 +882,7 @@ End
 		Sub query()
 		  dumpList.DeleteAllRows
 		  
-		  dim allRecords(-1) as localconfRecord = myLocalconf.FreeQuery(WHEREfield.Text.Trim)
+		  dim allRecords(-1) as localconfRecord = myLocalconf.QueryGeneric(WHEREfield.Text.Trim)
 		  
 		  if allRecords.Ubound < 0 then
 		    MsgBox "No configuration entries!"
@@ -746,6 +941,12 @@ End
 		    dumpList.Enabled = true
 		    dumpList.DeleteAllRows
 		    refreshBtn.Enabled = true
+		    queryDistinctBtn.Enabled = true
+		    DeleteBtn.Enabled = true
+		    appendBtn.Enabled = true
+		    ReadArrayBtn.Enabled = true
+		    ReadSingleBtn.Enabled = true
+		    
 		    Label1.Enabled = true
 		    
 		    
@@ -765,6 +966,12 @@ End
 		    dumpList.Enabled = False
 		    dumpList.DeleteAllRows
 		    refreshBtn.Enabled = False
+		    queryDistinctBtn.Enabled = false
+		    appendBtn.Enabled = false
+		    DeleteBtn.Enabled = false
+		    ReadArrayBtn.Enabled = false
+		    ReadSingleBtn.Enabled = false
+		    
 		    Label1.Enabled = false
 		    
 		  end select
@@ -840,6 +1047,36 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub DoubleClick()
+		  Dim row, column As Integer
+		  row = Me.RowFromXY(System.MouseX - Me.Left - Self.Left, System.MouseY - Me.Top - Self.Top)
+		  
+		  if row >= 0 then
+		    applicationField.Text = me.cell(row,1)
+		    userField.Text = me.cell(row,2)
+		    sectionField.Text = me.cell(row,3)
+		    keyField.Text = me.cell(row,4)
+		    valueField.Text = me.cell(row,5)
+		    commentField.Text = me.cell(row,6)
+		    
+		  end if
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Change()
+		  if me.ListIndex < 0 then
+		    applicationField.Text = ""
+		    userField.Text = ""
+		    sectionField.Text = ""
+		    keyField.Text = ""
+		    valueField.Text = ""
+		    commentField.Text = ""
+		    
+		  end if
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events refreshBtn
 	#tag Event
@@ -886,7 +1123,125 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events WHEREfield
+#tag Events queryDistinctBtn
+	#tag Event
+		Sub Action()
+		  if WHEREfield.Text.CountFields(",") <> 2 then 
+		    MsgBox "Input parameters format should be <field>,<where>"
+		    Return
+		  end if
+		  
+		  dim field as String = WHEREfield.Text.NthField("," , 1)
+		  dim where as String = WHEREfield.Text.NthField("," , 2)
+		  
+		  dim fields(-1) as String = myLocalconf.QueryDistinct(field , where)
+		  
+		  if myLocalconf.LastError <> "" then 
+		    MsgBox "Error: " + EndOfLine + myLocalconf.LastError
+		    
+		  else
+		    
+		    MsgBox Join(fields , EndOfLine)
+		    
+		  end if
+		  
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events appendBtn
+	#tag Event
+		Sub Action()
+		  dim confObj as new localconfRecord(true)
+		  
+		  confObj.application = applicationField.Text.Trim
+		  confObj.user = userField.Text.Trim
+		  confObj.section = sectionField.Text.Trim
+		  confObj.key = keyField.Text.Trim
+		  confObj.value = valueField.Text.Trim
+		  confObj.comment = commentField.Text.Trim
+		  
+		  confObj = myLocalconf.Append2Array(confObj)
+		  
+		  if confObj.Error then
+		    MsgBox confObj.ErrorMessage
+		  else
+		    MainLabel.text = "Just added objidx = " + str(confObj.objidx)
+		  end if
+		  
+		  query
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DeleteBtn
+	#tag Event
+		Sub Action()
+		  dim confObj as new localconfRecord(true)
+		  
+		  confObj.application = applicationField.Text.Trim
+		  confObj.user = userField.Text.Trim
+		  confObj.section = sectionField.Text.Trim
+		  confObj.key = keyField.Text.Trim
+		  
+		  confObj = myLocalconf.Delete(confObj)
+		  
+		  if confObj.Error then
+		    MsgBox confObj.ErrorMessage
+		  else
+		    MainLabel.text = "Deleted record"
+		  end if
+		  
+		  query
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ReadSingleBtn
+	#tag Event
+		Sub Action()
+		  dim confObj as new localconfRecord(true)
+		  
+		  confObj.application = applicationField.Text.Trim
+		  confObj.user = userField.Text.Trim
+		  confObj.section = sectionField.Text.Trim
+		  confObj.key = keyField.Text.Trim
+		  
+		  confObj = myLocalconf.Delete(confObj)
+		  
+		  if confObj.Error then
+		    MsgBox confObj.ErrorMessage
+		  else
+		    MainLabel.text = "Deleted record"
+		  end if
+		  
+		  query
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ReadArrayBtn
+	#tag Event
+		Sub Action()
+		  dim confObj as new localconfRecord(true)
+		  
+		  confObj.application = applicationField.Text.Trim
+		  confObj.user = userField.Text.Trim
+		  confObj.section = sectionField.Text.Trim
+		  confObj.key = keyField.Text.Trim
+		  
+		  confObj = myLocalconf.Delete(confObj)
+		  
+		  if confObj.Error then
+		    MsgBox confObj.ErrorMessage
+		  else
+		    MainLabel.text = "Deleted record"
+		  end if
+		  
+		  query
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
