@@ -11,6 +11,6 @@ This is an SQLite-based key-value storage mechanism for storing local configurat
 * value (the value field)
 * comment (some explanatory info for the particular setting, ie accepted values)
 
-Note that you can store unique application/user/section/key values or you can create an array of such values (all having the same application/user/section/key combination)\
+Note that you can store unique application/user/section/key values or you can create an array of such values (all having the same application/user/section/key combination)
 
 There is no extensive documentation, please study the demo application: it should give you a clear idea on how to use localconf.
