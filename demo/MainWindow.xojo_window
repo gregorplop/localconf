@@ -20,12 +20,12 @@ Begin Window MainWindow
    MenuBarVisible  =   True
    MinHeight       =   594
    MinimizeButton  =   True
-   MinWidth        =   1018
+   MinWidth        =   1152
    Placement       =   0
    Resizeable      =   True
    Title           =   "localconf_demo"
    Visible         =   True
-   Width           =   1018
+   Width           =   1152
    Begin TextField localconf_filenameField
       AcceptTabs      =   False
       Alignment       =   0
@@ -67,7 +67,7 @@ Begin Window MainWindow
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   540
+      Width           =   674
    End
    Begin PushButton openBtn
       AutoDeactivate  =   True
@@ -82,7 +82,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   826
+      Left            =   960
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -114,7 +114,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   918
+      Left            =   1052
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -181,7 +181,7 @@ Begin Window MainWindow
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   978
+      Width           =   1112
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -233,7 +233,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   734
+      Left            =   868
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -269,7 +269,7 @@ Begin Window MainWindow
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   572
+      Left            =   706
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -308,7 +308,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   734
+      Left            =   868
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -341,10 +341,10 @@ Begin Window MainWindow
       Enabled         =   True
       Format          =   ""
       Height          =   30
-      HelpTag         =   ""
+      HelpTag         =   "application"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   129
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -384,10 +384,10 @@ Begin Window MainWindow
       Enabled         =   True
       Format          =   ""
       Height          =   30
-      HelpTag         =   ""
+      HelpTag         =   "user"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   182
+      Left            =   291
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -427,10 +427,10 @@ Begin Window MainWindow
       Enabled         =   True
       Format          =   ""
       Height          =   30
-      HelpTag         =   ""
+      HelpTag         =   "section"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   344
+      Left            =   453
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -470,10 +470,10 @@ Begin Window MainWindow
       Enabled         =   True
       Format          =   ""
       Height          =   30
-      HelpTag         =   ""
+      HelpTag         =   "key"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   506
+      Left            =   615
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -513,10 +513,10 @@ Begin Window MainWindow
       Enabled         =   True
       Format          =   ""
       Height          =   30
-      HelpTag         =   ""
+      HelpTag         =   "comment"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   848
+      Left            =   982
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -556,10 +556,10 @@ Begin Window MainWindow
       Enabled         =   True
       Format          =   ""
       Height          =   30
-      HelpTag         =   ""
+      HelpTag         =   "value"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   686
+      Left            =   784
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -598,7 +598,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   848
+      Left            =   982
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -658,7 +658,7 @@ Begin Window MainWindow
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   550
+      Width           =   684
    End
    Begin PushButton queryDistinctBtn
       AutoDeactivate  =   True
@@ -673,7 +673,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   826
+      Left            =   960
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -705,7 +705,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   686
+      Left            =   784
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -757,7 +757,7 @@ Begin Window MainWindow
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   654
+      Width           =   788
    End
    Begin PushButton DeleteBtn
       AutoDeactivate  =   True
@@ -772,7 +772,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   506
+      Left            =   615
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -804,7 +804,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   129
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -836,7 +836,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   182
+      Left            =   291
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -866,7 +866,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   686
+      Left            =   820
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -889,6 +889,49 @@ Begin Window MainWindow
       Underline       =   True
       Visible         =   True
       Width           =   312
+   End
+   Begin TextField languageField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "language"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   30
+      HelpTag         =   "language"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LimitText       =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   34
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   16.0
+      TextUnit        =   0
+      Top             =   470
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   97
    End
 End
 #tag EndWindow
@@ -943,12 +986,13 @@ End
 		  for i as Integer = 0 to records.Ubound
 		    
 		    row(0) = str(records(i).objidx)
-		    row(1) = records(i).application
-		    row(2) = records(i).user
-		    row(3) = records(i).section
-		    row(4) = records(i).key
-		    row(5) = records(i).value
-		    row(6) = records(i).comment
+		    row(1) = records(i).language
+		    row(2) = records(i).application
+		    row(3) = records(i).user
+		    row(4) = records(i).section
+		    row(5) = records(i).key
+		    row(6) = records(i).value
+		    row(7) = records(i).comment
 		    
 		    dumpList.AddRow row
 		    
@@ -1067,14 +1111,16 @@ End
 #tag Events dumpList
 	#tag Event
 		Sub Open()
-		  me.ColumnCount = 7
+		  me.ColumnCount = 8
+		  
 		  me.Heading(0) = "objidx"
-		  me.Heading(1) = "application"
-		  me.Heading(2) = "user"
-		  me.Heading(3) = "section"
-		  me.Heading(4) = "key"
-		  me.Heading(5) = "value"
-		  me.Heading(6) = "comment"
+		  me.Heading(1) = "language"
+		  me.Heading(2) = "application"
+		  me.Heading(3) = "user"
+		  me.Heading(4) = "section"
+		  me.Heading(5) = "key"
+		  me.Heading(6) = "value"
+		  me.Heading(7) = "comment"
 		  
 		  me.HasHeading = true
 		  me.HeaderType(-1) = Listbox.HeaderTypes.NotSortable
@@ -1088,12 +1134,13 @@ End
 		  row = Me.RowFromXY(System.MouseX - Me.Left - Self.Left, System.MouseY - Me.Top - Self.Top)
 		  
 		  if row >= 0 then
-		    applicationField.Text = me.cell(row,1)
-		    userField.Text = me.cell(row,2)
-		    sectionField.Text = me.cell(row,3)
-		    keyField.Text = me.cell(row,4)
-		    valueField.Text = me.cell(row,5)
-		    commentField.Text = me.cell(row,6)
+		    languageField.Text = me.cell(row,1)
+		    applicationField.Text = me.cell(row,2)
+		    userField.Text = me.cell(row,3)
+		    sectionField.Text = me.cell(row,4)
+		    keyField.Text = me.cell(row,5)
+		    valueField.Text = me.cell(row,6)
+		    commentField.Text = me.cell(row,7)
 		    
 		  end if
 		  
@@ -1102,6 +1149,7 @@ End
 	#tag Event
 		Sub Change()
 		  if me.ListIndex < 0 then
+		    languageField.Text = ""
 		    applicationField.Text = ""
 		    userField.Text = ""
 		    sectionField.Text = ""
@@ -1260,6 +1308,7 @@ End
 		    
 		  else
 		    
+		    confObj.language = languageField.Text.Trim
 		    confObj.application = applicationField.Text.Trim
 		    confObj.user = userField.Text.Trim
 		    confObj.section = sectionField.Text.Trim

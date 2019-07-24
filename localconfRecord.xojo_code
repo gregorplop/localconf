@@ -44,6 +44,10 @@ Protected Class localconfRecord
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		language As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		objidx As Integer
 	#tag EndProperty
 
@@ -104,11 +108,13 @@ Protected Class localconfRecord
 			Name="application"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="comment"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Error"
@@ -119,6 +125,7 @@ Protected Class localconfRecord
 			Name="ErrorMessage"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Exists"
@@ -128,17 +135,24 @@ Protected Class localconfRecord
 		#tag ViewProperty
 			Name="objidx"
 			Group="Behavior"
-			Type="String"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="section"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="value"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="key"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
