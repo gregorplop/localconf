@@ -1,7 +1,7 @@
 #tag Class
 Protected Class localconfRecord
 	#tag Method, Flags = &h0
-		Sub Constructor(initExists as Boolean)
+		Sub Constructor(optional initExists as Boolean = true)
 		  Error = False
 		  ErrorMessage = ""
 		  Exists = initExists
@@ -153,6 +153,13 @@ Protected Class localconfRecord
 			Name="key"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="language"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
